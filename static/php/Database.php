@@ -53,7 +53,7 @@ class Game_Database {
 
     public function addGame($id, $password, $players_count, $map, $bet, $players_id, $status) {
         $sql = "INSERT INTO cre (id, password, players_count, map, bet, players_id, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $params = [$id, $password, $players_count, $map, $bet, $players_id];
+        $params = [$id, $password, $players_count, $map, $bet, $players_id, $status];
         $result = $this->query($sql, $params);
         if ($result) {
             return $this->conn->insert_id; // Возвращает ID добавленной записи
@@ -63,10 +63,11 @@ class Game_Database {
     }
 
     // Метод для получения новых игр из базы данных
-    public function getNewGames($lastGameId) {
-        $sql = "SELECT * FROM cre WHERE id > ?";
-        $params = [$lastGameId];
-        $result = $this->query($sql, $params);
+    public function getNewGames() {
+        $sql = "SELECT * FROM cre WHERE status = -1"; // Выбираем игры со статусом -1
+        $result = $this->query($sql);
+        $sql = "UPDATE cre SET status = 0 WHERE status = -1;"; // Обновляем статус игр на 0, если статус равен -1
+        $this->query($sql);
         
         $newGames = array();
         

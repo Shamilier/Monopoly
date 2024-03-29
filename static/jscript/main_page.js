@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 let lastGameId = 0; // Инициализация lastGameId
-let Status = 0;
+let StatuS = -1;
 
 document.addEventListener('DOMContentLoaded', function() {
     var createGameButton = document.getElementById('create-game-button');
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
             map: map,
             bet: bet,
             players_id: players_id,
-            status: Status
+            Status : StatuS
         };
 
         var xhr = new XMLHttpRequest();
@@ -77,33 +77,60 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-function checkForNewGames(lastGameId) {
-    var currentLastGameId = lastGameId;
+// function checkForNewGames(lastGameId) {
+//     var currentLastGameId = lastGameId;
 
+//     $.ajax({
+//         url: 'static/php/сheck_games.php',
+//         type: 'GET',
+//         data: { lastGameId: currentLastGameId },
+//         dataType: 'json',
+//         success: function(newGames) {
+//             if (newGames.length > 0) {
+//                 newGames.forEach(function(game) {
+//                     addNewGameToPage(game);
+//                 });
+//                 lastGameId = newGames[newGames.length - 1].gameId;
+//             }
+//             setTimeout(function() { checkForNewGames(lastGameId); }, 5000); // AAAAAAAAAA
+//         },
+//         error: function(xhr, status, error) {
+//             console.error(error);
+//             setTimeout(function() { checkForNewGames(lastGameId); }, 5000); // AA
+//         }
+//     });
+// }
+
+// $(document).ready(function() {
+//     checkForNewGames(lastGameId);
+// });
+
+function checkForNewGames() {
     $.ajax({
-        url: '../php/check_games.php',
+        url: 'static/php/сheck_games.php',
         type: 'GET',
-        data: { lastGameId: currentLastGameId },
         dataType: 'json',
         success: function(newGames) {
             if (newGames.length > 0) {
                 newGames.forEach(function(game) {
-                    addNewGameToPage(game);
+                    if (game.status === -1) { // Если статус игры равен -1, то добавляем её на страницу
+                        game.status = 0; // Устанавливаем статус игры в 0, чтобы обозначить, что она выведена на экран
+                        addNewGameToPage(game);
+                    }
                 });
-                lastGameId = newGames[newGames.length - 1].gameId;
             }
-            setTimeout(function() { checkForNewGames(lastGameId); }, 5000); // AAAAAAAAAA
         },
         error: function(xhr, status, error) {
             console.error(error);
-            setTimeout(function() { checkForNewGames(lastGameId); }, 5000); // AA
         }
     });
 }
 
 $(document).ready(function() {
-    checkForNewGames(lastGameId);
+    checkForNewGames(); // Вызываем функцию проверки новых игр при загрузке страницы
+    setInterval(checkForNewGames, 500); // Периодически вызываем функцию каждые 30 секунд
 });
+
 
 // Функция для добавления новой игры на страницу
 function addNewGameToPage(game) {
