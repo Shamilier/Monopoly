@@ -1,0 +1,100 @@
+
+:root {
+    --background: #1a1a2e;
+    --color: #ffffff;
+    --primary-color: #103460;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 1px;
+    margin: 0;
+    padding: 0;
+    background: var(--background);
+    color: var(--color);
+}
+
+#info-panel {
+    display: flex;
+    justify-content: space-between; /*Распределяет дочерние элементы на всю доступную ширину*/
+    align-items: center; /*Центрирует дочерние элементы по вертикали*/
+    padding: 10px;
+}
+
+
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(11, 100px) 140px;
+    grid-template-rows: 140px repeat(6, 100px) 140px;
+    gap: 7px;
+    justify-content: center;
+    align-content: center;
+}
+
+.cell-common {
+    width: 100px;
+    height: 140px;
+    background-color: #fff;
+}
+.cell-special {
+    width: 140px;
+    height: 100px;
+    background-color: #fff;
+}
+
+.cell-quadro {
+    /* margin-right: 100px; */
+    width: 140px;
+    height: 140px;
+    background-color: #fff;
+}
+.cell-empty {
+    background-color: transparent;
+}
+
+/*------------------------------------------------- */
+
+
+
+/* #chat-messages {
+    max-height: 300px;  Максимальная высота контейнера
+    overflow-y: auto;   Включение вертикальной прокрутки
+    padding: 8px;       /* Небольшой отступ внутри контейнера */
+    /* background-color: #f9f9f9; Светлый фон для контейнера */
+    /* border: 1px solid #ccc; Граница вокруг контейнера */
+/* } */
+/* .chat-message { */
+    /* margin-bottom: 4px; Отступ между сообщениями */
+/* } */ 
+
+
+
+/* .left-menu { */
+    /* font-family: "Poppins", sans-serif; */
+    /* font-size: 24px; */
+    /* font-weight: bold; */
+/* } */
+
+/* .right-menu { */
+    /* Стилизация для правого меню */
+/* } */
+
+/* #timer { */
+    /* Стилизация для таймера */
+/* } */
+
+/* #bet { */
+    /* Стилизация для ставок */
+/* } */
+
+/* #left-game { */
+    /* Стилизация для кнопки 'Покинуть игру' */
+/* } */
